@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নিরাপদ অ্যাডমিন ড্যাশবোর্ড | বেবি প্যালেস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Hind Siliguri', sans-serif; }</style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="main-dashboard" class="min-h-screen flex flex-col">
+        <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
+            <h1 class="text-lg font-bold text-gray-900"><i class="fa-solid fa-toolbox text-pink-500 mr-1"></i> Baby Palace ইনভেন্টরি কন্ট্রোল (Sheets Mode)</h1>
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>লাইভ সংযুক্ত</span>
+        </nav>
+
+        <div class="max-w-6xl mx-auto w-full p-4 grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
+            <!-- Form Card -->
+            <div class="bg-white p-5 rounded-2xl shadow h-fit">
+                <h3 class="font-bold text-gray-800 text-base mb-4 border-b pb-2">নতুন পণ্য যুক্ত করুন</h3>
+                <form id="product-form" class="space-y-3">
+                    <input type="text" id="p-name" placeholder="প্রোডাক্টের নাম" class="w-full p-2.5 text-sm border rounded-xl bg-gray-50 outline-none focus:bg-white" required>
+                    <input type="number" id="p-price" placeholder="মূল্য (টাকা)" class="w-full p-2.5 text-sm border rounded-xl bg-gray-50 outline-none focus:bg-white" required>
+                    <textarea id="p-desc" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ" class="w-full p-2.5 text-sm border rounded-xl bg-gray-50 outline-none focus:bg-white" rows="2" required></textarea>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">ক্যাটাগরি:</label>
+                        <select id="p-category" class="w-full p-2.5 text-sm border rounded-xl bg-gray-50 outline-none">
+                            <option value="toy">🧸 বেবি খেলনা (Toys)</option>
+                            <option value="care">🧴 বেবি কেয়ার (Care)</option>
+                            <option value="cloth">👕 বেবি পোশাক (Clothing)</option>
+                            <option value="other">👶 অন্যান্য (Others)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">ছবির লিঙ্ক:</label>
+                        <input type="url" id="p-link" placeholder="অনলাইন ইমেজের URL লিংক দিন" class="w-full p-2.5 text-sm border rounded-xl bg-gray-50 outline-none focus:bg-white" required>
+                    </div>
+
+                    <button type="submit" id="add-btn" class="w-full bg-pink-500 text-white py-2.5 rounded-xl font-bold text-sm hover:bg-pink-600 transition shadow">সংরক্ষণ করুন</button>
+                </form>
+            </div>
+
+            <!-- List Column -->
+            <div class="bg-white p-5 rounded-2xl shadow md:col-span-2">
+                <h3 class="font-bold text-gray-800 text-base mb-4 border-b pb-2">লাইভ গ্লোবাল স্টক (Google Sheets)</h3>
+                <div id="admin-inventory-list" class="space-y-2 max-h-[70vh] overflow-y-auto">
+                    <p class="text-center text-gray-400 py-6 text-sm">লোড হচ্ছে...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PASTE YOUR GOOGLE WEB APP URL HERE INSIDE THE QUOTES
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbxPyO_u3bs67w_m_fAdQXJNej5yC0RTdjsXYXh9ZViGlzHH_TNZURtBH3o463APl3w_/exec";
+
+        window.onload = () => {
+            loadLiveInventory();
+        }
+
+        async function loadLiveInventory() {
+            const container = document.getElementById('admin-inventory-list');
+            try {
+                const res = await fetch(DATABASE_URL);
+                const items = await res.json();
+
+                if(!items || items.length === 0) {
+                    container.innerHTML = '<p class="text-gray-400 text-center py-6 text-xs">ডাটাবেসে কোনো পণ্য খুঁজে পাওয়া যায়নি। নতুন পণ্য যোগ করুন।</p>';
+                    return;
+                }
+
+                container.innerHTML = "";
+                // Render list in reverse order (newest additions at top)
+                items.reverse().forEach(p => {
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="bg-gray-50 p-2.5 rounded-xl flex justify-between items-center text-xs border">
+                            <div class="flex items-center space-x-3 truncate">
+                                <img src="${p.img}" class="w-9 h-9 object-cover rounded-md bg-gray-200" onerror="this.src='https://placehold.co/50';">
+                                <div class="truncate">
+                                    <p class="font-bold text-gray-800 truncate">${p.name}</p>
+                                    <p class="text-pink-500 font-bold">৳ ${p.price}</p>
+                                </div>
+                            </div>
+                            <button onclick="deleteLiveItem('${p.id}')" class="text-red-500 hover:text-red-700 bg-red-50 p-2 rounded-lg transition"><i class="fa-solid fa-trash-can text-sm"></i></button>
+                        </div>
+                    `);
+                });
+            } catch (err) {
+                container.innerHTML = `<p class="text-red-400 text-center text-xs font-semibold">সংযোগ ত্রুটি: ${err.message}</p>`;
+            }
+        }
+
+        document.getElementById('product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('add-btn');
+            btn.disabled = true;
+            btn.innerText = "সংরক্ষণ হচ্ছে...";
+
+            const name = document.getElementById('p-name').value;
+            const price = parseFloat(document.getElementById('p-price').value);
+            const desc = document.getElementById('p-desc').value;
+            const category = document.getElementById('p-category').value;
+            const img = document.getElementById('p-link').value;
+
+            try {
+                const res = await fetch(DATABASE_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Bypasses browser strict firewalls seamlessly 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, price, desc, category, img })
+                });
+
+                alert("প্রোডাক্ট গ্লোবাল শিটে সেভ হয়েছে!");
+                document.getElementById('product-form').reset();
+                setTimeout(loadLiveInventory, 1500); // Small pause for sheet refresh processing
+            } catch(error) {
+                alert("যোগ করা যায়নি: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "সংরক্ষণ করুন";
+            }
+        });
+
+        async function deleteLiveItem(id) {
+            if(!confirm("আপনি কি নিশ্চিতভাবে এই প্রোডাক্টটি চিরতরে ডিলিট করতে চান?")) return;
+            try {
+                await fetch(DATABASE_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "delete", id: id })
+                });
+                setTimeout(loadLiveInventory, 1500);
+            } catch(error) {
+                alert("ডিলিট করা যায়নি: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

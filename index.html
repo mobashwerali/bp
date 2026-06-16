@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বেবি প্যালেস | আপনার বাচ্চার প্রয়োজনীয় সব কিছু এখন এক জায়গায়</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; }
+        .product-card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 0.85rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        @media(min-width: 1024px) {
+            .product-card:hover {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                transform: translateY(-5px);
+            }
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <meta name="google-site-verification" content="X0KqeyHP5Zod5iBji-9EsKc1Oao_g5V7TXhI2HgqgIk" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no" alt="Baby Palace Logo" class="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-100 object-cover" onerror="this.src='https://placehold.co/100?text=BP';">
+                <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Baby<span class="text-pink-500">Palace</span></h1>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-b from-blue-50 to-white pt-10 pb-6 text-center px-4">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mb-3">
+                আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন এক জায়গায়
+            </h2>
+            <p class="text-gray-600 text-sm sm:text-base">প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন।</p>
+        </div>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-4 mb-6">
+        <div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 pb-16">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-6 flex items-center">
+            <span class="w-5 h-1 bg-pink-500 mr-2 rounded-full"></span> 
+            <span id="current-category-title">সব প্রোডাক্ট</span>
+        </h3>
+        
+        <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+            <div class="col-span-full text-center text-gray-400 py-12 text-sm">প্রোডাক্ট লোড হচ্ছে...</div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 text-center sm:text-left">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
+            <div class="flex flex-col items-center sm:items-start">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no" alt="Baby Palace Logo" class="h-14 w-14 mb-3 rounded-full object-cover" onerror="this.src='https://placehold.co/100?text=BP';">
+                <h1 class="text-2xl font-bold text-white mb-1">Baby<span class="text-pink-500">Palace</span></h1>
+                <p class="text-sm max-w-sm">আপনার শিশুর জন্য সেরা ও নিরাপদ সব পণ্য পাবেন আমাদের কাছে। মোজ্জাফর টাওয়ার, সিদ্ধিরগঞ্জ পুল, নারায়ণগঞ্জ, বাংলাদেশ।</p>
+            </div>
+            <div class="text-sm space-y-1">
+                <h5 class="text-white font-bold text-base mb-2">যোগাযোগ ও অর্ডার</h5>
+                <p>সব অর্ডার সরাসরি হোয়াটসঅ্যাপের মাধ্যমে নেওয়া হয়।</p>
+                <p class="text-pink-400 font-semibold"><i class="fa-brands fa-whatsapp mr-1"></i> সরাসরি কথা বলতে যোগাযোগ করুন</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUMBER = "+8801763128639"; 
+        
+        // Connected live to your database URL & Token
+        const SUPABASE_URL = "https://hjcvxcxizdhobhcwjvdj.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_rEzp1lY_AAqna4KVSKH5MA_oO7VLVd8";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const categories = [
+            { id: 'all', name: 'সব প্রোডাক্ট' },
+            { id: 'toy', name: 'বেবি খেলনা' },
+            { id: 'care', name: 'বেবি কেয়ার' },
+            { id: 'cloth', name: 'বেবি পোশাক' },
+            { id: 'other', name: 'অন্যান্য' }
+        ];
+
+        let selectedCategory = 'all';
+        let products = [];
+
+        async function fetchProducts() {
+            try {
+                let { data, error } = await _supabase
+                    .from('products')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                products = data || [];
+                renderStorefront();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('product-list').innerHTML = "<p class='col-span-full text-center text-red-400 py-12 text-sm'>সার্ভার সংযোগে সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করুন।</p>";
+            }
+        }
+
+        function renderCategoryButtons() {
+            const container = document.getElementById('category-buttons');
+            container.innerHTML = "";
+            categories.forEach(cat => {
+                const isActive = selectedCategory === cat.id;
+                const btnClass = isActive ? "bg-pink-500 text-white font-bold" : "bg-white text-gray-600 border hover:border-pink-300 font-medium";
+                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-4 py-2 text-xs sm:text-sm rounded-full whitespace-nowrap transition duration-200 shadow-sm ${btnClass}">${cat.name}</button>`);
+            });
+        }
+
+        function filterCategory(catId) {
+            selectedCategory = catId;
+            const found = categories.find(c => c.id === catId);
+            document.getElementById('current-category-title').innerText = found ? found.name : "প্রোডাক্টস";
+            renderCategoryButtons();
+            renderStorefront();
+        }
+
+        function renderStorefront() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = "";
+            const filteredProducts = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
+
+            if (filteredProducts.length === 0) {
+                productList.innerHTML = "<p class='col-span-full text-center text-gray-400 py-12 text-sm'>এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</p>";
+                return;
+            }
+
+            filteredProducts.forEach(p => {
+                productList.insertAdjacentHTML('beforeend', `
+                    <div class="product-card flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-32 sm:h-44 bg-gray-100 rounded-xl mb-3 overflow-hidden border border-gray-50">
+                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1">${p.name}</h4>
+                            <p class="text-gray-500 text-[11px] sm:text-xs mt-0.5 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
+                        </div>
+                        <div class="mt-2 sm:mt-3">
+                            <p class="text-base sm:text-lg font-extrabold text-pink-500">৳ ${p.price}</p>
+                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold hover:bg-green-700 transition flex items-center justify-center space-x-1 shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-sm sm:text-base"></i>
+                                <span>অর্ডার করুন</span>
+                            </button>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        function orderViaWhatsApp(productName, price) {
+            const message = `আসসালামু আলাইকুম! আমি বেবি প্যালেস থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n\n📦 *প্রোডাক্টের নাম:* ${productName}\n💰 *মূল্য:* ৳ ${price}\n\nদয়া করে অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        renderCategoryButtons();
+        fetchProducts();
+    </script>
+</body>
+</html>
