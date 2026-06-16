@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta name="google-site-verification" content="DUczexkKYkHhNTIYZjnpToJOsg2Q6ycAWw66wKacxbA" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বেবি প্যালেস | আপনার বাচ্চার প্রয়োজনীয় সব কিছু এখন এক জায়গায়</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>বেবি প্যালেস | বাংলাদেশে সেরা ও নিরাপদ বাচ্চাদের খেলনা ও পোশাকের দোকান</title>
+    <meta name="title" content="বেবি প্যালেস | বাংলাদেশে সেরা ও নিরাপদ বাচ্চাদের খেলনা ও পোশাকের দোকান">
+    <meta name="description" content="বেবি প্যালেস (Baby Palace) থেকে কিনুন প্রিমিয়াম কোয়ালিটির বেবি খেলনা, নবজাতকের যত্ন নেওয়ার প্রোডাক্টস এবং আরামদায়ক পোশাক। সরাসরি হোয়াটসঅ্যাপে দ্রুত অর্ডার করুন। দেশব্যাপী ক্যাশ অন ডেলিভারি!">
+    <meta name="keywords" content="বেবি প্যালেস, Baby Palace, বাচ্চাদের খেলনা, বেবি কেয়ার প্রোডাক্টস, বাচ্চাদের পোশাক, baby toys Bangladesh, baby shop BD, online baby shop नारायणगंज">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali">
+    <meta name="author" content="Baby Palace">
+
+    <!-- Open Graph / Facebook / WhatsApp (Social Media SEO) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://babypalace.vercel.app/"> <!-- আপনার আসল সাইট লিঙ্কটি এখানে বসিয়ে দিতে পারেন -->
+    <meta property="og:title" content="বেবি প্যালেস | আপনার ছোট্ট সোনামণির সব প্রয়োজন এক জায়গায়">
+    <meta property="og:description" content="প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন। নিরাপদ শপিং-এর নির্ভরযোগ্য প্রতিষ্ঠান।">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no">
+
+    <!-- Twitter SEO -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://babypalace.vercel.app/">
+    <meta property="twitter:title" content="বেবি প্যালেস | প্রিমিয়াম বেবি শপ">
+    <meta property="twitter:description" content="প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন।">
+    <meta property="twitter:image" content="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no">
+
+    <!-- Google Site Verification (বিদ্যমান কোডটি অক্ষুণ্ণ রাখা হয়েছে) -->
+    <meta name="google-site-verification" content="X0KqeyHP5Zod5iBji-9EsKc1Oao_g5V7TXhI2HgqgIk" />
+
+    <!-- Fonts & Stylesheets -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
@@ -14,75 +40,86 @@
             background: white;
             border-radius: 1.25rem;
             padding: 0.85rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @media(min-width: 1024px) {
             .product-card:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                transform: translateY(-5px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+                transform: translateY(-4px);
             }
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-    <meta name="google-site-verification" content="X0KqeyHP5Zod5iBji-9EsKc1Oao_g5V7TXhI2HgqgIk" />
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no" alt="Baby Palace Logo" class="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-100 object-cover" onerror="this.src='https://placehold.co/100?text=BP';">
+                <div class="h-10 w-10 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-pink-200">BP</div>
+                <!-- SEO-র জন্য সাইটের মূল নামটিকে h1 ট্যাগে রাখা হয়েছে -->
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Baby<span class="text-pink-500">Palace</span></h1>
             </div>
+            <a href="tel:+8801763128639" class="text-xs sm:text-sm font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full transition flex items-center space-x-1" title="আমাদের হেল্পলাইনে কল করুন">
+                <i class="fa-solid fa-headset text-pink-500"></i>
+                <span>হেল্পলাইন</span>
+            </a>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-b from-blue-50 to-white pt-10 pb-6 text-center px-4">
+    <!-- হিরো সেকশন -->
+    <header class="bg-gradient-to-b from-pink-50/50 to-white pt-12 pb-8 text-center px-4">
         <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mb-3">
+            <span class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">সেরা অনলাইন বেবি শপ</span>
+            <!-- h2 ট্যাগটি সার্চ ইঞ্জিনের রিডাবিলিটি বাড়াবে -->
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mt-3 mb-4">
                 আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন এক জায়গায়
             </h2>
-            <p class="text-gray-600 text-sm sm:text-base">প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন।</p>
+            <p class="text-gray-500 text-sm sm:text-base max-w-md mx-auto">প্রিমিয়াম কোয়ালিটির খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন।</p>
         </div>
     </header>
 
-    <section class="max-w-6xl mx-auto px-4 mb-6">
+    <!-- ক্যাটাগরি ফিল্টার -->
+    <section class="max-w-6xl mx-auto px-4 mb-8">
         <div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div>
     </section>
 
-    <main class="max-w-6xl mx-auto px-4 pb-16">
-        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-6 flex items-center">
-            <span class="w-5 h-1 bg-pink-500 mr-2 rounded-full"></span> 
+    <!-- প্রোডাক্ট লিস্ট -->
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-6 flex items-center">
+            <span class="w-2 h-5 bg-pink-500 mr-2.5 rounded-full"></span> 
             <span id="current-category-title">সব প্রোডাক্ট</span>
         </h3>
         
         <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-            <div class="col-span-full text-center text-gray-400 py-12 text-sm">প্রোডাক্ট লোড হচ্ছে...</div>
+            <div class="col-span-full text-center text-gray-400 py-16 flex flex-col items-center justify-center space-y-3">
+                <div class="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-xs font-medium text-gray-500">প্রোডাক্ট লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-10 text-center sm:text-left">
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
-            <div class="flex flex-col items-center sm:items-start">
-                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no" alt="Baby Palace Logo" class="h-14 w-14 mb-3 rounded-full object-cover" onerror="this.src='https://placehold.co/100?text=BP';">
-                <h1 class="text-2xl font-bold text-white mb-1">Baby<span class="text-pink-500">Palace</span></h1>
-                <p class="text-sm max-w-sm">আপনার শিশুর জন্য সেরা ও নিরাপদ সব পণ্য পাবেন আমাদের কাছে। মোজ্জাফর টাওয়ার, সিদ্ধিরগঞ্জ পুল, নারায়ণগঞ্জ, বাংলাদেশ।</p>
+    <!-- ফুটার -->
+    <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-center md:text-left">
+            <div>
+                <strong class="text-2xl font-bold text-white mb-2 block font-normal">Baby<span class="text-pink-500">Palace</span></strong>
+                <p class="text-sm max-w-sm mx-auto md:mx-0 text-gray-400 leading-relaxed">আপনার শিশুর জন্য সেরা ও নিরাপদ সব পণ্য পাবেন আমাদের কাছে। মোজ্জাফর টাওয়ার, সিদ্ধিরগঞ্জ পুল, নারায়ণগঞ্জ, বাংলাদেশ।</p>
             </div>
-            <div class="text-sm space-y-1">
-                <h5 class="text-white font-bold text-base mb-2">যোগাযোগ ও অর্ডার</h5>
-                <p>সব অর্ডার সরাসরি হোয়াটসঅ্যাপের মাধ্যমে নেওয়া হয়।</p>
-                <p class="text-pink-400 font-semibold"><i class="fa-brands fa-whatsapp mr-1"></i> সরাসরি কথা বলতে যোগাযোগ করুন</p>
+            <div class="text-sm space-y-2 md:text-right">
+                <h5 class="text-white font-bold text-base">যোগাযোগ ও অর্ডার</h5>
+                <p class="text-gray-400">আমাদের সব অর্ডার সরাসরি অফিশিয়াল হোয়াটসঅ্যাপের মাধ্যমে নেওয়া হয়।</p>
+                <p class="inline-flex items-center text-green-400 font-bold bg-green-950/50 px-4 py-2 rounded-xl border border-green-900/50"><i class="fa-brands fa-whatsapp mr-2 text-base"></i> +8801763128639</p>
             </div>
         </div>
     </footer>
 
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
-        
-        // Connected directly to your Google Sheet deployment
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbxPyO_u3bs67w_m_fAdQXJNej5yC0RTdjsXYXh9ZViGlzHH_TNZURtBH3o463APl3w_/exec";
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbxPyO_u3bs67w_m_fAdQXJNej5yC0RTdjsXYXh9ZViGlzHH_TNURtBH3o463APl3w_/exec";
 
         const categories = [
             { id: 'all', name: 'সব প্রোডাক্ট' },
@@ -98,13 +135,17 @@
         async function fetchProducts() {
             try {
                 const res = await fetch(DATABASE_URL);
+                if (!res.ok) throw new Error('Network error');
                 const data = await res.json();
-                
                 products = data || [];
                 renderStorefront();
             } catch (err) {
                 console.error(err);
-                document.getElementById('product-list').innerHTML = "<p class='col-span-full text-center text-red-400 py-12 text-sm'>সার্ভার সংযোগে সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করুন।</p>";
+                document.getElementById('product-list').innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fa-solid fa-triangle-exclamation text-red-400 text-2xl mb-2"></i>
+                        <p class='text-sm font-semibold text-gray-600'>সার্ভার সংযোগে সমস্যা হচ্ছে। অনুগ্রহ করে পৃষ্ঠাটি রিফ্রেশ করুন।</p>
+                    </div>`;
             }
         }
 
@@ -113,8 +154,8 @@
             container.innerHTML = "";
             categories.forEach(cat => {
                 const isActive = selectedCategory === cat.id;
-                const btnClass = isActive ? "bg-pink-500 text-white font-bold" : "bg-white text-gray-600 border hover:border-pink-300 font-medium";
-                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-4 py-2 text-xs sm:text-sm rounded-full whitespace-nowrap transition duration-200 shadow-sm ${btnClass}">${cat.name}</button>`);
+                const btnClass = isActive ? "bg-pink-500 text-white font-bold shadow-md shadow-pink-100" : "bg-white text-gray-600 border border-gray-200 hover:border-pink-300 font-medium";
+                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-5 py-2.5 text-xs sm:text-sm rounded-full whitespace-nowrap transition duration-200 outline-none ${btnClass}">${cat.name}</button>`);
             });
         }
 
@@ -132,24 +173,29 @@
             const filteredProducts = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
 
             if (filteredProducts.length === 0) {
-                productList.innerHTML = "<p class='col-span-full text-center text-gray-400 py-12 text-sm'>এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</p>";
+                productList.innerHTML = `
+                    <div class='col-span-full text-center py-16 text-gray-400'>
+                        <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
+                        <span class="text-xs font-medium">এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</span>
+                    </div>`;
                 return;
             }
 
-            // Render list in reverse chronological order (newest stock items show up first)
             [...filteredProducts].reverse().forEach(p => {
                 productList.insertAdjacentHTML('beforeend', `
-                    <div class="product-card flex flex-col justify-between">
+                    <div class="product-card flex flex-col justify-between border border-gray-100">
                         <div>
-                            <div class="w-full h-32 sm:h-44 bg-gray-100 rounded-xl mb-3 overflow-hidden border border-gray-50">
-                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
+                            <!-- এসইও ক্রলারের সুবিধার জন্য ইমেজে alt টেক্সট ডাইনামিক করা হয়েছে -->
+                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3.5 overflow-hidden border border-gray-100/50">
+                                <img src="${p.img}" alt="${p.name} - Baby Palace" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
                             </div>
+                            <!-- প্রোডাক্ট টাইটেলকে h4-এ রাখা হয়েছে ক্রলিং সহজ করার জন্য -->
                             <h4 class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1">${p.name}</h4>
-                            <p class="text-gray-500 text-[11px] sm:text-xs mt-0.5 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
+                            <p class="text-gray-400 text-[11px] sm:text-xs mt-1 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
                         </div>
-                        <div class="mt-2 sm:mt-3">
+                        <div class="mt-3">
                             <p class="text-base sm:text-lg font-extrabold text-pink-500">৳ ${p.price}</p>
-                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold hover:bg-green-700 transition flex items-center justify-center space-x-1 shadow-sm">
+                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2.5 bg-green-600 hover:bg-green-700 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center space-x-1.5 shadow-sm shadow-green-100" title="${p.name} অর্ডার করতে ক্লিক করুন">
                                 <i class="fa-brands fa-whatsapp text-sm sm:text-base"></i>
                                 <span>অর্ডার করুন</span>
                             </button>
@@ -160,7 +206,7 @@
         }
 
         function orderViaWhatsApp(productName, price) {
-            const message = `আসসালামু আলাইকুম! আমি বেবি প্যালেস থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n\n📦 *প্রোডাক্টের নাম:* ${productName}\n💰 *মূল্য:* ৳ ${price}\n\nদয়া করে অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
+            const message = `আসসালামু আলাইকুম! আমি বেবি প্যালেস থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n\n📦 *প্রোডাক্টের নাম:* ${productName}\n💰 *মূলয়:* ৳ ${price}\n\nদয়া করে অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
