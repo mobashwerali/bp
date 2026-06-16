@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; }
         .product-card {
@@ -81,10 +80,8 @@
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
         
-        // Connected live to your database URL & Token
-        const SUPABASE_URL = "https://hjcvxcxizdhobhcwjvdj.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_rEzp1lY_AAqna4KVSKH5MA_oO7VLVd8";
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Connected directly to your Google Sheet deployment
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbxPyO_u3bs67w_m_fAdQXJNej5yC0RTdjsXYXh9ZViGlzHH_TNZURtBH3o463APl3w_/exec";
 
         const categories = [
             { id: 'all', name: 'সব প্রোডাক্ট' },
@@ -99,12 +96,9 @@
 
         async function fetchProducts() {
             try {
-                let { data, error } = await _supabase
-                    .from('products')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                const res = await fetch(DATABASE_URL);
+                const data = await res.json();
                 
-                if (error) throw error;
                 products = data || [];
                 renderStorefront();
             } catch (err) {
@@ -141,7 +135,8 @@
                 return;
             }
 
-            filteredProducts.forEach(p => {
+            // Render list in reverse chronological order (newest stock items show up first)
+            [...filteredProducts].reverse().forEach(p => {
                 productList.insertAdjacentHTML('beforeend', `
                     <div class="product-card flex flex-col justify-between">
                         <div>
