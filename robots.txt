@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 Disallow: /cgi-bin/
-Sitemap: https://babypalace.vercel.app/sitemaps.xml
+Sitemap: https://babypalace.tiiny.site/sitemap.xml
