@@ -47,6 +47,7 @@
 
     <header class="bg-gradient-to-b from-pink-50/50 to-white pt-12 pb-8 text-center px-4">
         <div class="max-w-2xl mx-auto">
+            <span class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">লাইভ গুগল শিট ইনভেন্টরি</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mt-3 mb-4">
                 আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন এক জায়গায়
             </h2>
@@ -71,6 +72,34 @@
         </div>
     </main>
 
+    <div id="product-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+            
+            <div class="overflow-y-auto p-5 sm:p-6 space-y-4">
+                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border">
+                    <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900 leading-snug"></h3>
+                    <p id="modal-price" class="text-xl font-extrabold text-pink-500 mt-1"></p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">পণ্যের বিস্তারিত বিবরণ:</p>
+                    <p id="modal-desc" class="text-gray-600 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
+                </div>
+            </div>
+            <div class="p-4 border-t bg-gray-50">
+                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-green-100">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>হোয়াটসঅ্যাপে অর্ডার করুন</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
         <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-center md:text-left">
             <div>
@@ -87,7 +116,7 @@
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
         // ⚠️ এখানে আপনার কপি করা Google Apps Script Web App URLটি বসান
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exec"; 
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exechttps://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exec"; 
 
         const categories = [
             { id: 'all', name: 'সব প্রোডাক্ট' },
@@ -148,15 +177,23 @@
                 return;
             }
 
-            [...filteredProducts].reverse().forEach(p => {
+            // নতুন প্রোডাক্টগুলো আগে দেখানোর জন্য রিলিজ অর্ডার রিভার্স করা হলো
+            [...filteredProducts].reverse().forEach((p, index) => {
+                // গ্লোবাল অ্যারে ইনডেক্স খুঁজে বের করা মোডাল ডেটার জন্য
+                const globalIndex = products.findIndex(item => item.id === p.id);
+
                 productList.insertAdjacentHTML('beforeend', `
                     <div class="product-card flex flex-col justify-between border border-gray-100">
                         <div>
-                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3.5 overflow-hidden border border-gray-100/50">
-                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
+                            <div onclick="openModal(${globalIndex})" class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3.5 overflow-hidden border border-gray-100/50 cursor-pointer group">
+                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
                             </div>
-                            <h4 class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1">${p.name}</h4>
-                            <p class="text-gray-400 text-[11px] sm:text-xs mt-1 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
+                            <h4 onclick="openModal(${globalIndex})" class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1 cursor-pointer hover:text-pink-500 transition">${p.name}</h4>
+                            
+                            <p class="text-gray-400 text-[11px] sm:text-xs mt-1 line-clamp-2 leading-tight">
+                                ${p.desc || ''}
+                            </p>
+                            ${p.desc && p.desc.length > 40 ? `<button onclick="openModal(${globalIndex})" class="text-pink-500 text-[11px] font-bold mt-0.5 hover:underline focus:outline-none">See More...</button>` : ''}
                         </div>
                         <div class="mt-3">
                             <p class="text-base sm:text-lg font-extrabold text-pink-500">৳ ${p.price}</p>
@@ -169,6 +206,44 @@
                 `);
             });
         }
+
+        // 🌟 মোডাল ওপেন করার ফাংশন
+        function openModal(index) {
+            const p = products[index];
+            if(!p) return;
+
+            document.getElementById('modal-img').src = p.img;
+            document.getElementById('modal-name').innerText = p.name;
+            document.getElementById('modal-price').innerText = `৳ ${p.price}`;
+            document.getElementById('modal-desc').innerText = p.desc || 'কোনো বিবরণ দেওয়া নেই।';
+            
+            // মোডাল হোয়াটসঅ্যাপ বাটন কনফিগারেশন
+            document.getElementById('modal-order-btn').onclick = () => {
+                orderViaWhatsApp(p.name, p.price);
+            };
+
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        // 🌟 মোডাল ক্লোজ করার ফাংশন
+        function closeModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // মোডালের বাইরে ক্লিক করলে ক্লোজ হবে
+        document.getElementById('product-modal').addEventListener('click', function(e) {
+            if(e.target === this) closeModal();
+        });
 
         function orderViaWhatsApp(productName, price) {
             const message = `আসসালামু আলাইকুম! আমি বেবি প্যালেস থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n\n📦 *প্রোডাক্টের নাম:* ${productName}\n💰 *মূল্য:* ৳ ${price}\n\nদয়া করে অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
