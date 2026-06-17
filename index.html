@@ -24,7 +24,6 @@
                 <div class="h-10 w-10 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-md">BP</div>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Baby<span class="text-pink-500">Palace</span></h1>
             </div>
-            <a href="tel:+8801763128639" class="text-xs sm:text-sm font-semibold bg-gray-100 text-gray-700 px-4 py-2 rounded-full flex items-center space-x-1"><i class="fa-solid fa-headset text-pink-500"></i> <span>হেল্পলাইন</span></a>
         </div>
     </nav>
 
@@ -46,7 +45,7 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="overflow-y-auto p-5 sm:p-6 space-y-4">
-                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border relative">
+                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border">
                     <img id="modal-main-img" src="" class="w-full h-full object-cover">
                 </div>
                 <div id="modal-thumbs" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar"></div>
@@ -74,7 +73,7 @@
 
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbx2e52l7gSS7WiwzjZgxkAPIHMYSlWcTFBvdgj5FzcrcQSs84DY3otAiKVNQr6GqAaj/exec"; // ⚠️ আপনার ইউআরএল দিন
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exec"; // ⚠️ আপনার ইউআরএল দিন
 
         let selectedCategory = 'all', products = [];
 
@@ -122,32 +121,43 @@
                             <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden border"><img src="${p.img}" class="w-full h-full object-cover"></div>
                             <h4 class="font-bold text-gray-800 text-sm line-clamp-1 hover:text-pink-500">${p.name}</h4>
                             <p class="text-gray-400 text-[11px] mt-1 line-clamp-2">${p.desc || ''}</p>
-                            <span class="text-pink-500 text-[11px] font-bold mt-0.5 block">আরও দেখুন (See More)...</span>
+                            <span class="text-pink-500 text-[11px] font-bold mt-0.5 block">See More...</span>
                         </div>
                         <div class="mt-3">
                             <p class="text-base font-extrabold text-pink-500">৳ ${p.price}</p>
-                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1"><i class="fa-brands fa-whatsapp"></i> <span>অর্ডার করুন</span></button>
+                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1"><i class="fa-brands fa-whatsapp"></i> <span>অर्डर করুন</span></button>
                         </div>
                     </div>
                 `);
             });
         }
 
+        // 🌟 ইউটিউব লিংক অটো-কনভার্টার ফাংশন
+        function getYouTubeEmbedUrl(url) {
+            if (!url) return null;
+            let videoId = null;
+            if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            } else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else if (url.includes('youtube.com/embed/')) {
+                return url;
+            }
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        }
+
         function openModal(index) {
             const p = products[index];
             if(!p) return;
 
-            // ১. ছবি গ্যালারি সেটআপ
             const mainImg = document.getElementById('modal-main-img');
             mainImg.src = p.img;
             
             const thumbsContainer = document.getElementById('modal-thumbs');
             thumbsContainer.innerHTML = "";
 
-            // প্রধান ছবিকে গ্যালারিতে প্রথম ছবি হিসেবে যোগ করা
             let allImages = [p.img];
             if(p.more_imgs) {
-                // কমা দিয়ে আলাদা করা বাকি ছবিগুলো যুক্ত করা
                 allImages = allImages.concat(p.more_imgs.split(',').map(link => link.trim()));
             }
 
@@ -159,25 +169,20 @@
                 `);
             });
 
-            // ২. নাম, দাম ও বিবরণ সেটআপ
             document.getElementById('modal-name').innerText = p.name;
             document.getElementById('modal-price').innerText = `৳ ${p.price}`;
             document.getElementById('modal-desc').innerText = p.desc || 'কোনো বিবরণ নেই।';
 
-            // ৩. ভিডিও হ্যান্ডলার (ইউটিউব সাপোর্ট)
+            // ভিডিও প্রসেসিং
             const videoContainer = document.getElementById('modal-video-container');
             const videoWrapper = document.getElementById('video-frame-wrapper');
-            videoWrapper.innerHTML = ""; 
+            const embedUrl = getYouTubeEmbedUrl(p.video);
 
-            if(p.video && p.video.includes('youtube.com/watch?v=')) {
-                const videoId = p.video.split('v=')[1].split('&')[0];
-                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-                videoContainer.classList.remove('hidden');
-            } else if(p.video && p.video.includes('youtu.be/')) {
-                const videoId = p.video.split('youtu.be/')[1].split('?')[0];
-                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+            if(embedUrl) {
+                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                 videoContainer.classList.remove('hidden');
             } else {
+                videoWrapper.innerHTML = "";
                 videoContainer.classList.add('hidden');
             }
 
@@ -195,7 +200,7 @@
 
         function closeModal() {
             const modal = document.getElementById('product-modal');
-            document.getElementById('video-frame-wrapper').innerHTML = ""; // ভিডিও বন্ধ করার জন্য
+            document.getElementById('video-frame-wrapper').innerHTML = ""; 
             modal.classList.add('opacity-0'); modal.querySelector('div').classList.add('scale-95');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
