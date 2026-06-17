@@ -3,95 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বেবি প্যালেস | আপনার বাচ্চার প্রয়োজনীয় সব কিছু এখন এক জায়গায়</title>
+    
+    <title>বেবি প্যালেস | প্রিমিয়াম বেবি শপ</title>
+    <meta name="description" content="বেবি প্যালেস থেকে কিনুন প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে দ্রুত অর্ডার করুন।">
+    <meta name="google-site-verification" content="X0KqeyHP5Zod5iBji-9EsKc1Oao_g5V7TXhI2HgqgIk" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; }
         .product-card {
             background: white;
             border-radius: 1.25rem;
             padding: 0.85rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @media(min-width: 1024px) {
             .product-card:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                transform: translateY(-5px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+                transform: translateY(-4px);
             }
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-    <meta name="google-site-verification" content="X0KqeyHP5Zod5iBji-9EsKc1Oao_g5V7TXhI2HgqgIk" />
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_YkWeJxOtu3tFGkMx71s1s48aBBbZFG5xDpTMaHabuIHSDCZz8fwvQe6IrP1phDhJzxSOAQKEqk7IQcw5F89J9grizV-180A4THQla70lITM548yoaoKgdbLyV80hqiURPxpez0J0_hk=w411-h298-k-no" alt="Baby Palace Logo" class="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-100 object-cover" onerror="this.src='https://placehold.co/100?text=BP';">
+                <div class="h-10 w-10 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-md">BP</div>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Baby<span class="text-pink-500">Palace</span></h1>
             </div>
+            <a href="tel:+8801763128639" class="text-xs sm:text-sm font-semibold bg-gray-100 text-gray-700 px-4 py-2 rounded-full flex items-center space-x-1">
+                <i class="fa-solid fa-headset text-pink-500"></i>
+                <span>হেল্পলাইন</span>
+            </a>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-b from-blue-50 to-white pt-10 pb-6 text-center px-4">
+    <header class="bg-gradient-to-b from-pink-50/50 to-white pt-12 pb-8 text-center px-4">
         <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mb-3">
+            <span class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">গুগল শিট চালিত লাইভ স্টোর</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mt-3 mb-4">
                 আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন এক জায়গায়
             </h2>
-            <p class="text-gray-600 text-sm sm:text-base">প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন।</p>
         </div>
     </header>
 
-    <section class="max-w-6xl mx-auto px-4 mb-6">
+    <section class="max-w-6xl mx-auto px-4 mb-8">
         <div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div>
     </section>
 
-    <main class="max-w-6xl mx-auto px-4 pb-16">
-        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-6 flex items-center">
-            <span class="w-5 h-1 bg-pink-500 mr-2 rounded-full"></span> 
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-6 flex items-center">
+            <span class="w-2 h-5 bg-pink-500 mr-2.5 rounded-full"></span> 
             <span id="current-category-title">সব প্রোডাক্ট</span>
         </h3>
         
         <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-            <div class="col-span-full text-center text-gray-400 py-12 text-sm">প্রোডাক্ট লোড হচ্ছে...</div>
+            <div class="col-span-full text-center text-gray-400 py-16 flex flex-col items-center justify-center space-y-3">
+                <div class="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-xs font-medium text-gray-500">প্রোডাক্ট লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
+            </div>
         </div>
     </main>
 
-<footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+    <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-center md:text-left">
             <div>
-                <strong class="text-2xl font-bold text-white mb-2 block font-normal">Baby<span class="text-pink-500">Palace</span></strong>
+                <h1 class="text-2xl font-bold text-white mb-2">Baby<span class="text-pink-500">Palace</span></h1>
                 <p class="text-sm max-w-sm mx-auto md:mx-0 text-gray-400 leading-relaxed">আপনার শিশুর জন্য সেরা ও নিরাপদ সব পণ্য পাবেন আমাদের কাছে। মোজ্জাফর টাওয়ার, সিদ্ধিরগঞ্জ পুল, নারায়ণগঞ্জ, বাংলাদেশ।</p>
             </div>
-            
-            <div class="text-sm flex flex-col space-y-2">
-                <h5 class="text-white font-bold text-base mb-1">গুরুত্বপূর্ণ লিঙ্ক</h5>
-                <a href="about.html" class="hover:text-pink-500 transition">আমাদের সম্পর্কে (About Us)</a>
-                <a href="privacy.html" class="hover:text-pink-500 transition">গোপনীয়তা নীতি (Privacy Policy)</a>
-                <a href="terms.html" class="hover:text-pink-500 transition">শর্তাবলী ও রিটার্ন পলিসি</a>
-            </div>
-
             <div class="text-sm space-y-2 md:text-right">
                 <h5 class="text-white font-bold text-base">যোগাযোগ ও অর্ডার</h5>
-                <p class="text-gray-400">আমাদের সব অর্ডার সরাসরি অফিশিয়াল হোয়াটসঅ্যাপের মাধ্যমে নেওয়া হয়।</p>
-                <p class="inline-flex items-center text-green-400 font-bold bg-green-950/50 px-4 py-2 rounded-xl border border-green-900/50"><i class="fa-brands fa-whatsapp mr-2 text-base"></i> +8801763128639</p>
+                <p class="inline-flex items-center text-green-400 font-bold bg-green-950/50 px-4 py-2 rounded-xl"><i class="fa-brands fa-whatsapp mr-2 text-base"></i> +8801763128639</p>
             </div>
         </div>
     </footer>
 
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
-        
-        // Connected live to your database URL & Token
-        const SUPABASE_URL = "https://hjcvxcxizdhobhcwjvdj.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_rEzp1lY_AAqna4KVSKH5MA_oO7VLVd8";
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // ⚠️ এখানে আপনার কপি করা Google Apps Script Web App URLটি বসান
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exec"; 
 
         const categories = [
             { id: 'all', name: 'সব প্রোডাক্ট' },
@@ -106,59 +103,27 @@
 
         async function fetchProducts() {
             try {
-                let { data, error } = await _supabase
-                    .from('products')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-                
-                if (error) throw error;
+                const res = await fetch(DATABASE_URL);
+                const data = await res.json();
                 products = data || [];
-function renderStorefront() {
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = "";
-            const filteredProducts = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
-
-            if (filteredProducts.length === 0) {
-                productList.innerHTML = `
-                    <div class='col-span-full text-center py-16 text-gray-400'>
-                        <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
-                        <span class="text-xs font-medium">এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</span>
+                renderStorefront();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('product-list').innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fa-solid fa-triangle-exclamation text-red-400 text-2xl mb-2"></i>
+                        <p class='text-sm font-semibold text-gray-600'>সার্ভার সংযোগে সমস্যা হচ্ছে। পৃষ্ঠাটি রিফ্রেশ করুন।</p>
                     </div>`;
-                return;
             }
-
-            [...filteredProducts].reverse().forEach(p => {
-                // প্রতিটি প্রোডাক্টের জন্য ডাইনামিক সুন্দর লিঙ্ক তৈরি করা হচ্ছে
-                const productUrl = `product.html?id=${p.id}`;
-
-                productList.insertAdjacentHTML('beforeend', `
-                    <div class="product-card flex flex-col justify-between border border-gray-100">
-                        <!-- কাস্টমার ইমেজে বা নামে ক্লিক করলে নির্দিষ্ট প্রোডাক্ট পেজে চলে যাবে -->
-                        <a href="${productUrl}" class="block group">
-                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3.5 overflow-hidden border border-gray-100/50">
-                                <img src="${p.img}" alt="${p.name} - Baby Palace" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
-                            </div>
-                            <h4 class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1 group-hover:text-pink-500 transition">${p.name}</h4>
-                            <p class="text-gray-400 text-[11px] sm:text-xs mt-1 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
-                        </a>
-                        <div class="mt-3">
-                            <p class="text-base sm:text-lg font-extrabold text-pink-500">৳ ${p.price}</p>
-                            <!-- সরাসরি ডিটেইলস পেজে যাওয়ার জন্য ভিউ বাটন -->
-                            <a href="${productUrl}" class="w-full mt-2.5 bg-gray-900 hover:bg-gray-800 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center space-x-1.5 shadow-sm">
-                                <i class="fa-solid fa-eye text-xs"></i>
-                                <span>বিস্তারিত দেখুন</span>
-                            </a>
-                        </div>
-                    </div>
-                `);
-            });
         }
+
+        function renderCategoryButtons() {
             const container = document.getElementById('category-buttons');
             container.innerHTML = "";
             categories.forEach(cat => {
                 const isActive = selectedCategory === cat.id;
-                const btnClass = isActive ? "bg-pink-500 text-white font-bold" : "bg-white text-gray-600 border hover:border-pink-300 font-medium";
-                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-4 py-2 text-xs sm:text-sm rounded-full whitespace-nowrap transition duration-200 shadow-sm ${btnClass}">${cat.name}</button>`);
+                const btnClass = isActive ? "bg-pink-500 text-white font-bold shadow-md shadow-pink-100" : "bg-white text-gray-600 border border-gray-200 hover:border-pink-300 font-medium";
+                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-5 py-2.5 text-xs sm:text-sm rounded-full whitespace-nowrap transition duration-200 outline-none ${btnClass}">${cat.name}</button>`);
             });
         }
 
@@ -176,23 +141,27 @@ function renderStorefront() {
             const filteredProducts = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
 
             if (filteredProducts.length === 0) {
-                productList.innerHTML = "<p class='col-span-full text-center text-gray-400 py-12 text-sm'>এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</p>";
+                productList.innerHTML = `
+                    <div class='col-span-full text-center py-16 text-gray-400'>
+                        <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
+                        <span class="text-xs font-medium">এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</span>
+                    </div>`;
                 return;
             }
 
-            filteredProducts.forEach(p => {
+            [...filteredProducts].reverse().forEach(p => {
                 productList.insertAdjacentHTML('beforeend', `
-                    <div class="product-card flex flex-col justify-between">
+                    <div class="product-card flex flex-col justify-between border border-gray-100">
                         <div>
-                            <div class="w-full h-32 sm:h-44 bg-gray-100 rounded-xl mb-3 overflow-hidden border border-gray-50">
+                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3.5 overflow-hidden border border-gray-100/50">
                                 <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
                             </div>
                             <h4 class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1">${p.name}</h4>
-                            <p class="text-gray-500 text-[11px] sm:text-xs mt-0.5 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
+                            <p class="text-gray-400 text-[11px] sm:text-xs mt-1 line-clamp-2 h-7 sm:h-8 leading-tight">${p.desc || ''}</p>
                         </div>
-                        <div class="mt-2 sm:mt-3">
+                        <div class="mt-3">
                             <p class="text-base sm:text-lg font-extrabold text-pink-500">৳ ${p.price}</p>
-                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold hover:bg-green-700 transition flex items-center justify-center space-x-1 shadow-sm">
+                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2.5 bg-green-600 hover:bg-green-700 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center space-x-1.5 shadow-sm shadow-green-100">
                                 <i class="fa-brands fa-whatsapp text-sm sm:text-base"></i>
                                 <span>অর্ডার করুন</span>
                             </button>
