@@ -3,31 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>বেবি প্যালেস | প্রিমিয়াম বেবি শপ</title>
-    <meta name="description" content="বেবি প্যালেস থেকে কিনুন প্রিমিয়াম কোয়ালিটির বেবি খেলনা, যত্ন নেওয়ার প্রোডাক্টস এবং পোশাক সরাসরি হোয়াটসঅ্যাপে দ্রুত অর্ডার করুন।">
-    <meta name="google-site-verification" content="X0KqeyHP5Zod5iBji-9EsKc1Oao_g5V7TXhI2HgqgIk" />
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; }
-        .product-card {
-            background: white;
-            border-radius: 1.25rem;
-            padding: 0.85rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        @media(min-width: 1024px) {
-            .product-card:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
-                transform: translateY(-4px);
-            }
-        }
+        .product-card { background: white; border-radius: 1.25rem; padding: 0.85rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
+        @media(min-width: 1024px) { .product-card:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08); transform: translateY(-4px); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .thumb-btn.active { border-color: #ec4899; opacity: 1; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -38,110 +24,67 @@
                 <div class="h-10 w-10 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-md">BP</div>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Baby<span class="text-pink-500">Palace</span></h1>
             </div>
-            <a href="tel:+8801763128639" class="text-xs sm:text-sm font-semibold bg-gray-100 text-gray-700 px-4 py-2 rounded-full flex items-center space-x-1">
-                <i class="fa-solid fa-headset text-pink-500"></i>
-                <span>হেল্পলাইন</span>
-            </a>
+            <a href="tel:+8801763128639" class="text-xs sm:text-sm font-semibold bg-gray-100 text-gray-700 px-4 py-2 rounded-full flex items-center space-x-1"><i class="fa-solid fa-headset text-pink-500"></i> <span>হেল্পলাইন</span></a>
         </div>
     </nav>
 
     <header class="bg-gradient-to-b from-pink-50/50 to-white pt-12 pb-8 text-center px-4">
-        <div class="max-w-2xl mx-auto">
-           
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight mt-3 mb-4">
-                আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন এক জায়গায়
-            </h2>
-        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800">আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন</h2>
     </header>
 
-    <section class="max-w-6xl mx-auto px-4 mb-8">
-        <div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div>
-    </section>
+    <section class="max-w-6xl mx-auto px-4 mb-8"><div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div></section>
 
     <main class="max-w-6xl mx-auto px-4 pb-20">
-        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-6 flex items-center">
-            <span class="w-2 h-5 bg-pink-500 mr-2.5 rounded-full"></span> 
-            <span id="current-category-title">সব প্রোডাক্ট</span>
-        </h3>
-        
+        <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center"><span class="w-2 h-5 bg-pink-500 mr-2.5 rounded-full"></span> <span id="current-category-title">সব প্রোডাক্ট</span></h3>
         <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-            <div class="col-span-full text-center text-gray-400 py-16 flex flex-col items-center justify-center space-y-3">
-                <div class="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-                <p class="text-xs font-medium text-gray-500">প্রোডাক্ট লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
-            </div>
+            <div class="col-span-full text-center text-gray-400 py-16">লোড হচ্ছে...</div>
         </div>
     </main>
 
     <div id="product-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
         <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </button>
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="overflow-y-auto p-5 sm:p-6 space-y-4">
-                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border">
-                    <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border relative">
+                    <img id="modal-main-img" src="" class="w-full h-full object-cover">
                 </div>
+                <div id="modal-thumbs" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar"></div>
+
                 <div>
-                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900 leading-snug"></h3>
+                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900"></h3>
                     <p id="modal-price" class="text-xl font-extrabold text-pink-500 mt-1"></p>
                 </div>
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">পণ্যের বিস্তারিত বিবরণ:</p>
+
+                <div id="modal-video-container" class="hidden bg-gray-50 p-3 rounded-2xl border">
+                    <p class="text-[11px] font-bold text-gray-400 uppercase mb-2"><i class="fa-solid fa-video text-pink-500"></i> প্রোডাক্টের লাইভ ভিডিও:</p>
+                    <div class="w-full aspect-video rounded-xl overflow-hidden shadow-sm" id="video-frame-wrapper"></div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-xl border">
+                    <p class="text-[11px] font-bold text-gray-400 uppercase mb-1">পণ্যের বিবরণ:</p>
                     <p id="modal-desc" class="text-gray-600 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
                 </div>
             </div>
             <div class="p-4 border-t bg-gray-50">
-                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-green-100">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>হোয়াটসঅ্যাপে অর্ডার করুন</span>
-                </button>
+                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center space-x-2"><i class="fa-brands fa-whatsapp text-lg"></i> <span>হোয়াটসঅ্যাপে অর্ডার করুন</span></button>
             </div>
         </div>
     </div>
 
-    <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-center md:text-left">
-            <div>
-                <h1 class="text-2xl font-bold text-white mb-2">Baby<span class="text-pink-500">Palace</span></h1>
-                <p class="text-sm max-w-sm mx-auto md:mx-0 text-gray-400 leading-relaxed">আপনার শিশুর জন্য সেরা ও নিরাপদ সব পণ্য পাবেন আমাদের কাছে। মোজ্জাফর টাওয়ার, সিদ্ধিরগঞ্জ পুল, নারায়ণগঞ্জ, বাংলাদেশ।</p>
-            </div>
-            <div class="text-sm space-y-2 md:text-right">
-                <h5 class="text-white font-bold text-base">যোগাযোগ ও অর্ডার</h5>
-                <p class="inline-flex items-center text-green-400 font-bold bg-green-950/50 px-4 py-2 rounded-xl"><i class="fa-brands fa-whatsapp mr-2 text-base"></i> +8801763128639</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
-        // ⚠️ এখানে আপনার কপি করা Google Apps Script Web App URLটি বসান
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exec"; 
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbx2e52l7gSS7WiwzjZgxkAPIHMYSlWcTFBvdgj5FzcrcQSs84DY3otAiKVNQr6GqAaj/exec"; // ⚠️ আপনার ইউআরএল দিন
 
-        const categories = [
-            { id: 'all', name: 'সব প্রোডাক্ট' },
-            { id: 'toy', name: 'বেবি খেলনা' },
-            { id: 'care', name: 'বেবি কেয়ার' },
-            { id: 'cloth', name: 'বেবি পোশাক' },
-            { id: 'other', name: 'অন্যান্য' }
-        ];
-
-        let selectedCategory = 'all';
-        let products = [];
+        let selectedCategory = 'all', products = [];
 
         async function fetchProducts() {
             try {
                 const res = await fetch(DATABASE_URL);
-                const data = await res.json();
-                products = data || [];
+                products = await res.json();
                 renderStorefront();
             } catch (err) {
-                console.error(err);
-                document.getElementById('product-list').innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <i class="fa-solid fa-triangle-exclamation text-red-400 text-2xl mb-2"></i>
-                        <p class='text-sm font-semibold text-gray-600'>সার্ভার সংযোগে সমস্যা হচ্ছে। পৃষ্ঠাটি রিফ্রেশ করুন।</p>
-                    </div>`;
+                document.getElementById('product-list').innerHTML = "<p class='col-span-full text-center text-red-500 py-12'>সংযোগ সমস্যা!</p>";
             }
         }
 
@@ -150,15 +93,13 @@
             container.innerHTML = "";
             categories.forEach(cat => {
                 const isActive = selectedCategory === cat.id;
-                const btnClass = isActive ? "bg-pink-500 text-white font-bold shadow-md shadow-pink-100" : "bg-white text-gray-600 border border-gray-200 hover:border-pink-300 font-medium";
-                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-5 py-2.5 text-xs sm:text-sm rounded-full whitespace-nowrap transition duration-200 outline-none ${btnClass}">${cat.name}</button>`);
+                container.insertAdjacentHTML('beforeend', `<button onclick="filterCategory('${cat.id}')" class="px-5 py-2.5 text-xs sm:text-sm rounded-full whitespace-nowrap transition ${isActive ? 'bg-pink-500 text-white font-bold' : 'bg-white text-gray-600 border'}">${cat.name}</button>`);
             });
         }
 
         function filterCategory(catId) {
             selectedCategory = catId;
-            const found = categories.find(c => c.id === catId);
-            document.getElementById('current-category-title').innerText = found ? found.name : "প্রোডাক্টস";
+            document.getElementById('current-category-title').innerText = categories.find(c => c.id === catId).name;
             renderCategoryButtons();
             renderStorefront();
         }
@@ -166,92 +107,105 @@
         function renderStorefront() {
             const productList = document.getElementById('product-list');
             productList.innerHTML = "";
-            const filteredProducts = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
+            const filtered = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
 
-            if (filteredProducts.length === 0) {
-                productList.innerHTML = `
-                    <div class='col-span-full text-center py-16 text-gray-400'>
-                        <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
-                        <span class="text-xs font-medium">এই ক্যাটাগরিতে বর্তমানে কোনো প্রোডাক্ট নেই।</span>
-                    </div>`;
+            if (filtered.length === 0) {
+                productList.innerHTML = "<p class='col-span-full text-center py-12 text-gray-400'>কোনো প্রোডাক্ট নেই।</p>";
                 return;
             }
 
-            // নতুন প্রোডাক্টগুলো আগে দেখানোর জন্য রিলিজ অর্ডার রিভার্স করা হলো
-            [...filteredProducts].reverse().forEach((p, index) => {
-                // গ্লোবাল অ্যারে ইনডেক্স খুঁজে বের করা মোডাল ডেটার জন্য
+            [...filtered].reverse().forEach(p => {
                 const globalIndex = products.findIndex(item => item.id === p.id);
-
                 productList.insertAdjacentHTML('beforeend', `
                     <div class="product-card flex flex-col justify-between border border-gray-100">
-                        <div>
-                            <div onclick="openModal(${globalIndex})" class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3.5 overflow-hidden border border-gray-100/50 cursor-pointer group">
-                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';">
-                            </div>
-                            <h4 onclick="openModal(${globalIndex})" class="font-bold text-gray-800 text-sm sm:text-base line-clamp-1 cursor-pointer hover:text-pink-500 transition">${p.name}</h4>
-                            
-                            <p class="text-gray-400 text-[11px] sm:text-xs mt-1 line-clamp-2 leading-tight">
-                                ${p.desc || ''}
-                            </p>
-                            ${p.desc && p.desc.length > 40 ? `<button onclick="openModal(${globalIndex})" class="text-pink-500 text-[11px] font-bold mt-0.5 hover:underline focus:outline-none">See More...</button>` : ''}
+                        <div onclick="openModal(${globalIndex})" class="cursor-pointer">
+                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden border"><img src="${p.img}" class="w-full h-full object-cover"></div>
+                            <h4 class="font-bold text-gray-800 text-sm line-clamp-1 hover:text-pink-500">${p.name}</h4>
+                            <p class="text-gray-400 text-[11px] mt-1 line-clamp-2">${p.desc || ''}</p>
+                            <span class="text-pink-500 text-[11px] font-bold mt-0.5 block">আরও দেখুন (See More)...</span>
                         </div>
                         <div class="mt-3">
-                            <p class="text-base sm:text-lg font-extrabold text-pink-500">৳ ${p.price}</p>
-                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2.5 bg-green-600 hover:bg-green-700 text-white py-2 px-1.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center space-x-1.5 shadow-sm shadow-green-100">
-                                <i class="fa-brands fa-whatsapp text-sm sm:text-base"></i>
-                                <span>অর্ডার করুন</span>
-                            </button>
+                            <p class="text-base font-extrabold text-pink-500">৳ ${p.price}</p>
+                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1"><i class="fa-brands fa-whatsapp"></i> <span>অর্ডার করুন</span></button>
                         </div>
                     </div>
                 `);
             });
         }
 
-        // 🌟 মোডাল ওপেন করার ফাংশন
         function openModal(index) {
             const p = products[index];
             if(!p) return;
 
-            document.getElementById('modal-img').src = p.img;
+            // ১. ছবি গ্যালারি সেটআপ
+            const mainImg = document.getElementById('modal-main-img');
+            mainImg.src = p.img;
+            
+            const thumbsContainer = document.getElementById('modal-thumbs');
+            thumbsContainer.innerHTML = "";
+
+            // প্রধান ছবিকে গ্যালারিতে প্রথম ছবি হিসেবে যোগ করা
+            let allImages = [p.img];
+            if(p.more_imgs) {
+                // কমা দিয়ে আলাদা করা বাকি ছবিগুলো যুক্ত করা
+                allImages = allImages.concat(p.more_imgs.split(',').map(link => link.trim()));
+            }
+
+            allImages.forEach((imgUrl, idx) => {
+                thumbsContainer.insertAdjacentHTML('beforeend', `
+                    <button onclick="document.getElementById('modal-main-img').src='${imgUrl}'; updateActiveThumb(this)" class="thumb-btn flex-shrink-0 w-12 h-12 rounded-lg border-2 border-gray-200 overflow-hidden opacity-70 transition ${idx === 0 ? 'active' : ''}">
+                        <img src="${imgUrl}" class="w-full h-full object-cover">
+                    </button>
+                `);
+            });
+
+            // ২. নাম, দাম ও বিবরণ সেটআপ
             document.getElementById('modal-name').innerText = p.name;
             document.getElementById('modal-price').innerText = `৳ ${p.price}`;
-            document.getElementById('modal-desc').innerText = p.desc || 'কোনো বিবরণ দেওয়া নেই।';
-            
-            // মোডাল হোয়াটসঅ্যাপ বাটন কনফিগারেশন
-            document.getElementById('modal-order-btn').onclick = () => {
-                orderViaWhatsApp(p.name, p.price);
-            };
+            document.getElementById('modal-desc').innerText = p.desc || 'কোনো বিবরণ নেই।';
+
+            // ৩. ভিডিও হ্যান্ডলার (ইউটিউব সাপোর্ট)
+            const videoContainer = document.getElementById('modal-video-container');
+            const videoWrapper = document.getElementById('video-frame-wrapper');
+            videoWrapper.innerHTML = ""; 
+
+            if(p.video && p.video.includes('youtube.com/watch?v=')) {
+                const videoId = p.video.split('v=')[1].split('&')[0];
+                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+                videoContainer.classList.remove('hidden');
+            } else if(p.video && p.video.includes('youtu.be/')) {
+                const videoId = p.video.split('youtu.be/')[1].split('?')[0];
+                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+                videoContainer.classList.remove('hidden');
+            } else {
+                videoContainer.classList.add('hidden');
+            }
+
+            document.getElementById('modal-order-btn').onclick = () => orderViaWhatsApp(p.name, p.price);
 
             const modal = document.getElementById('product-modal');
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.querySelector('div').classList.remove('scale-95');
-            }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('div').classList.remove('scale-95'); }, 10);
         }
 
-        // 🌟 মোডাল ক্লোজ করার ফাংশন
+        function updateActiveThumb(btn) {
+            document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
         function closeModal() {
             const modal = document.getElementById('product-modal');
-            modal.classList.add('opacity-0');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            document.getElementById('video-frame-wrapper').innerHTML = ""; // ভিডিও বন্ধ করার জন্য
+            modal.classList.add('opacity-0'); modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // মোডালের বাইরে ক্লিক করলে ক্লোজ হবে
-        document.getElementById('product-modal').addEventListener('click', function(e) {
-            if(e.target === this) closeModal();
-        });
-
-        function orderViaWhatsApp(productName, price) {
-            const message = `আসসালামু আলাইকুম! আমি বেবি প্যালেস থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n\n📦 *প্রোডাক্টের নাম:* ${productName}\n💰 *মূল্য:* ৳ ${price}\n\nদয়া করে অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        function orderViaWhatsApp(name, price) {
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`আসসালামু আলাইকুম! আমি বেবি প্যালেস থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n\n📦 *নাম:* ${name}\n💰 *মূল্য:* ৳ ${price}`)}`, '_blank');
         }
 
-        renderCategoryButtons();
-        fetchProducts();
+        const categories = [{ id: 'all', name: 'সব প্রোডাক্ট' }, { id: 'toy', name: 'বেবি খেলনা' }, { id: 'care', name: 'বেবি কেয়ার' }, { id: 'cloth', name: 'বেবি পোশাক' }, { id: 'other', name: 'অন্যান্য' }];
+        renderCategoryButtons(); fetchProducts();
     </script>
 </body>
 </html>
