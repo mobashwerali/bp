@@ -5,35 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>অ্যাডমিন প্যানেল | বেবি প্যালেস</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght=400;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Hind Siliguri', sans-serif; }</style>
 </head>
-<body class="bg-gray-50 p-6">
-    <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border shadow-sm space-y-4">
-        <h2 class="text-xl font-bold text-gray-800 border-b pb-2">🛍️ নতুন প্রোডাক্ট অ্যাড করুন (Advanced Mode)</h2>
-        <form id="adv-form" class="space-y-3">
-            <input type="text" id="name" placeholder="পণ্যের নাম" class="w-full p-2.5 text-xs border rounded-xl outline-none" required>
-            <input type="number" id="price" placeholder="মূল্য (টাকা)" class="w-full p-2.5 text-xs border rounded-xl outline-none" required>
-            <textarea id="desc" placeholder="পণ্যের বিবরণ" class="w-full p-2.5 text-xs border rounded-xl outline-none" rows="3" required></textarea>
-            
-            <select id="category" class="w-full p-2.5 text-xs border rounded-xl bg-white">
-                <option value="toy">🧸 বেবি খেলনা</option>
-                <option value="care">🧴 বেবি কেয়ার</option>
-                <option value="cloth">👕 বেবি পোশাক</option>
-                <option value="other">👶 অন্যান্য</option>
-            </select>
+<body class="bg-gray-50 text-gray-800">
 
-            <input type="url" id="img" placeholder="প্রধান ছবির লিংক (Main Image URL)" class="w-full p-2.5 text-xs border rounded-xl outline-none" required>
-            
-            <textarea id="more_imgs" placeholder="অতিরিক্ত ছবিগুলোর লিংক (একটি লিংক বসিয়ে কমা দিবেন, তারপর আরেকটি লিংক বসাবেন)" class="w-full p-2.5 text-xs border rounded-xl outline-none" rows="2"></textarea>
-            <input type="url" id="video" placeholder="ইউটিউব ভিডিও লিংক (যেমন: https://www.youtube.com/watch?v=xxxx)" class="w-full p-2.5 text-xs border rounded-xl outline-none">
+    <div class="min-h-screen flex flex-col">
+        <nav class="bg-white shadow-sm px-6 py-4 flex justify-between items-center border-b border-gray-200">
+            <h1 class="text-base sm:text-lg font-bold text-gray-900 flex items-center">
+                <i class="fa-solid fa-gauge-high text-pink-500 mr-2"></i> 
+                Baby Palace ইনভেন্টরি ড্যাশবোর্ড
+            </h1>
+            <span class="bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded-full text-xs font-bold flex items-center">
+                <span class="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>Google Sheets লাইভ মোড
+            </span>
+        </nav>
 
-            <button type="submit" id="sub-btn" class="w-full bg-pink-500 text-white py-2.5 rounded-xl font-bold text-xs">সংরক্ষণ করুন</button>
-        </form>
+        <div class="max-w-6xl mx-auto w-full p-4 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
+            
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm h-fit">
+                <h3 class="font-bold text-gray-900 text-sm mb-4 border-b pb-2 flex items-center justify-between">
+                    <span>নতুন প্রোডাক্ট যোগ করুন</span>
+                    <i class="fa-solid fa-circle-plus text-gray-400"></i>
+                </h3>
+                <form id="adv-form" class="space-y-3.5">
+                    <input type="text" id="name" placeholder="পণ্যের নাম" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white transition" required>
+                    <input type="number" id="price" placeholder="মূল্য (টাকা)" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white transition" required>
+                    <textarea id="desc" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white transition" rows="2" required></textarea>
+                    
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">ক্যাটাগরি নির্ধারণ করুন:</label>
+                        <select id="category" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white">
+                            <option value="toy">🧸 বেবি খেলনা (Toys)</option>
+                            <option value="care">🧴 বেবি কেয়ার (Care)</option>
+                            <option value="cloth">👕 বেবি পোশাক (Clothing)</option>
+                            <option value="other">👶 অন্যান্য (Others)</option>
+                        </select>
+                    </div>
+
+                    <input type="url" id="img" placeholder="প্রধান ছবির লিংক (Main Image URL)" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white transition" required>
+                    <textarea id="more_imgs" placeholder="অতিরিক্ত ছবির লিংক (একাধিক ছবি কমা দিয়ে লিখবেন যেমন: লিংক১,লিংক২)" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white transition" rows="2"></textarea>
+                    <input type="url" id="video" placeholder="ইউটিউব ভিডিও লিংক (বড় বা ছোট যেকোনো লিংক)" class="w-full p-2.5 text-xs border rounded-xl bg-gray-50 outline-none focus:border-pink-500 focus:bg-white transition">
+
+                    <button type="submit" id="sub-btn" class="w-full bg-pink-500 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-pink-600 transition shadow-md">সংরক্ষণ করুন</button>
+                </form>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm lg:col-span-2 flex flex-col">
+                <h3 class="font-bold text-gray-900 text-sm mb-4 border-b pb-2 flex items-center justify-between">
+                    <span>লাইভ ইনভেন্টরি তালিকা (স্টক কন্ট্রোল)</span>
+                    <button onclick="loadLiveInventory()" class="text-xs text-pink-500 hover:text-pink-600 font-semibold"><i class="fa-solid fa-rotate mr-1"></i> রিফ্রেশ</button>
+                </h3>
+                <div id="admin-inventory-list" class="space-y-2 max-h-[70vh] overflow-y-auto pr-1">
+                    <p class="text-center text-gray-400 py-12 text-xs">ডাটা লোড হচ্ছে...</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbx2e52l7gSS7WiwzjZgxkAPIHMYSlWcTFBvdgj5FzcrcQSs84DY3otAiKVNQr6GqAaj/exec"; // ⚠️ আপনার ইউআরএল দিন
+        // ⚠️ এখানে আপনার কপি করা Google Apps Script Web App URLটি বসান
+        const DATABASE_URL = "YOUR_GOOGLE_SCRIPT_URL"; 
+
+        window.onload = () => {
+            loadLiveInventory();
+        }
+
+        async function loadLiveInventory() {
+            const container = document.getElementById('admin-inventory-list');
+            try {
+                const res = await fetch(DATABASE_URL);
+                const items = await res.json();
+
+                if(!items || items.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12 text-gray-400">
+                            <i class="fa-regular fa-folder-closed text-2xl mb-1.5 block"></i>
+                            <p class="text-xs">কোনো পণ্য খুঁজে পাওয়া যায়নি।</p>
+                        </div>`;
+                    return;
+                }
+
+                container.innerHTML = "";
+                items.reverse().forEach(p => {
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="bg-gray-50 p-2.5 rounded-xl flex justify-between items-center text-xs border border-gray-200/60 hover:bg-gray-100/50 transition">
+                            <div class="flex items-center space-x-3 truncate">
+                                <img src="${p.img}" class="w-10 h-10 object-cover rounded-lg bg-gray-200 border" onerror="this.src='https://placehold.co/50';">
+                                <div class="truncate">
+                                    <p class="font-bold text-gray-800 truncate">${p.name}</p>
+                                    <p class="text-pink-500 font-bold mt-0.5">৳ ${p.price}</p>
+                                </div>
+                            </div>
+                            <button onclick="deleteLiveItem('${p.id}')" class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100/70 p-2 rounded-xl transition ml-4 flex-shrink-0">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+                    `);
+                });
+            } catch (err) {
+                container.innerHTML = `<p class="text-red-400 text-center text-xs font-semibold py-6">সংযোগ ত্রুটি!</p>`;
+            }
+        }
 
         document.getElementById('adv-form').onsubmit = async (e) => {
             e.preventDefault();
@@ -47,8 +121,8 @@
                 desc: document.getElementById('desc').value,
                 category: document.getElementById('category').value,
                 img: document.getElementById('img').value,
-                more_imgs: document.getElementById('more_imgs').value, // নতুন
-                video: document.getElementById('video').value // নতুন
+                more_imgs: document.getElementById('more_imgs').value,
+                video: document.getElementById('video').value
             };
 
             try {
@@ -59,12 +133,30 @@
                 });
                 alert("সফলভাবে গুগল শিটে সেভ হয়েছে!");
                 document.getElementById('adv-form').reset();
+                loadLiveInventory();
             } catch(err) {
                 alert("সমস্যা হয়েছে!");
             } finally {
                 btn.disabled = false; btn.innerText = "সংরক্ষণ করুন";
             }
         };
+
+        async function deleteLiveItem(id) {
+            if(!confirm("আপনি কি নিশ্চিতভাবে এই প্রোডাক্টটি ডিলিট করতে চান?")) return;
+            try {
+                document.getElementById('admin-inventory-list').innerHTML = '<p class="text-center text-gray-400 py-12 text-xs">মুছে ফেলা হচ্ছে...</p>';
+                await fetch(DATABASE_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "delete", id: id })
+                });
+                setTimeout(loadLiveInventory, 1500);
+            } catch(error) {
+                alert("ডিলিট করা যায়নি!");
+                loadLiveInventory();
+            }
+        }
     </script>
 </body>
 </html>
