@@ -13,7 +13,12 @@
         @media(min-width: 1024px) { .product-card:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08); transform: translateY(-4px); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .thumb-btn.active { border-color: #ec4899; opacity: 1; }
+        
+        /* স্লাইডার অ্যানিমেশন ও স্টাইল */
+        .slider-container { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); width: 100%; height: 100%; }
+        .slide { flex: 0 0 100%; width: 100%; height: 100%; }
+        .dot.active { background-color: #ec4899; width: 1.25rem; }
+        .thumb-btn.active { border-color: #ec4899; opacity: 1; transform: scale(1.05); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -42,16 +47,31 @@
 
     <div id="product-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
         <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-xmark"></i></button>
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             
             <div class="overflow-y-auto p-5 sm:p-6 space-y-4">
-                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border">
-                    <img id="modal-main-img" src="" class="w-full h-full object-cover">
+                
+                <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border relative group">
+                    <div id="slider-wrapper" class="slider-container" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd()">
+                        </div>
+                    
+                    <button onclick="prevSlide()" id="prev-btn" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow transition hidden">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button onclick="nextSlide()" id="next-btn" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow transition hidden">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                    
+                    <div id="slider-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10"></div>
                 </div>
-                <div id="modal-thumbs" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar"></div>
+
+                <div id="modal-thumbs" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar justify-center"></div>
 
                 <div>
-                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900"></h3>
+                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900 leading-snug"></h3>
                     <p id="modal-price" class="text-xl font-extrabold text-pink-500 mt-1"></p>
                 </div>
 
@@ -65,17 +85,22 @@
                     <p id="modal-desc" class="text-gray-600 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
                 </div>
             </div>
+            
             <div class="p-4 border-t bg-gray-50">
-                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center space-x-2"><i class="fa-brands fa-whatsapp text-lg"></i> <span>হোয়াটসঅ্যাপে অর্ডার করুন</span></button>
+                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-green-100">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> <span>হোয়াটসঅ্যাপে অর্ডার করুন</span>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbz1WCnMkc-sFBE94h1leLoPosT0ttUjGRoJobjQ9K5y4AMtBxcB6EDWb9Z9ZMj_Nu2m/exec"; // ⚠️ আপনার ইউআরএল দিন
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbx2e52l7gSS7WiwzjZgxkAPIHMYSlWcTFBvdgj5FzcrcQSs84DY3otAiKVNQr6GqAaj/exec"; // ⚠️ এখানে আপনার ইউআরএল দিন
 
         let selectedCategory = 'all', products = [];
+        let currentSlideIndex = 0, totalSlides = 0;
+        let touchStartX = 0, touchEndX = 0;
 
         async function fetchProducts() {
             try {
@@ -118,21 +143,24 @@
                 productList.insertAdjacentHTML('beforeend', `
                     <div class="product-card flex flex-col justify-between border border-gray-100">
                         <div onclick="openModal(${globalIndex})" class="cursor-pointer">
-                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden border"><img src="${p.img}" class="w-full h-full object-cover"></div>
-                            <h4 class="font-bold text-gray-800 text-sm line-clamp-1 hover:text-pink-500">${p.name}</h4>
+                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden border">
+                                <img src="${p.img}" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm line-clamp-1 hover:text-pink-500 transition">${p.name}</h4>
                             <p class="text-gray-400 text-[11px] mt-1 line-clamp-2">${p.desc || ''}</p>
-                            <span class="text-pink-500 text-[11px] font-bold mt-0.5 block">See More...</span>
+                            <span class="text-pink-500 text-[11px] font-bold mt-1 block">See More...</span>
                         </div>
                         <div class="mt-3">
                             <p class="text-base font-extrabold text-pink-500">৳ ${p.price}</p>
-                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1"><i class="fa-brands fa-whatsapp"></i> <span>অर्डर করুন</span></button>
+                            <button onclick="orderViaWhatsApp('${p.name}', ${p.price})" class="w-full mt-2 bg-green-600 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1 hover:bg-green-700 transition">
+                                <i class="fa-brands fa-whatsapp"></i> <span>অর্ডার করুন</span>
+                            </button>
                         </div>
                     </div>
                 `);
             });
         }
 
-        // 🌟 ইউটিউব লিংক অটো-কনভার্টার ফাংশন
         function getYouTubeEmbedUrl(url) {
             if (!url) return null;
             let videoId = null;
@@ -146,34 +174,66 @@
             return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
         }
 
+        // 🌟 মোডাল ওপেন এবং অ্যাডভান্সড স্লাইডশো সেটআপ
         function openModal(index) {
             const p = products[index];
             if(!p) return;
 
-            const mainImg = document.getElementById('modal-main-img');
-            mainImg.src = p.img;
-            
+            currentSlideIndex = 0;
+            const sliderWrapper = document.getElementById('slider-wrapper');
             const thumbsContainer = document.getElementById('modal-thumbs');
+            const dotsContainer = document.getElementById('slider-dots');
+            
+            sliderWrapper.innerHTML = "";
             thumbsContainer.innerHTML = "";
+            dotsContainer.innerHTML = "";
 
+            // ছবি প্রসেসিং
             let allImages = [p.img];
             if(p.more_imgs) {
-                allImages = allImages.concat(p.more_imgs.split(',').map(link => link.trim()));
+                allImages = allImages.concat(p.more_imgs.split(',').map(link => link.trim()).filter(l => l !== ""));
             }
+            totalSlides = allImages.length;
 
+            // স্লাইডার উইন্ডো ও ইন্ডিকেটর তৈরি
             allImages.forEach((imgUrl, idx) => {
+                // স্লাইড ইমেজ যোগ
+                sliderWrapper.insertAdjacentHTML('beforeend', `
+                    <div class="slide flex-shrink-0 w-100 h-100">
+                        <img src="${imgUrl}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x400?text=No+Image';">
+                    </div>
+                `);
+                
+                // থাম্বনেইল বাটন যোগ
                 thumbsContainer.insertAdjacentHTML('beforeend', `
-                    <button onclick="document.getElementById('modal-main-img').src='${imgUrl}'; updateActiveThumb(this)" class="thumb-btn flex-shrink-0 w-12 h-12 rounded-lg border-2 border-gray-200 overflow-hidden opacity-70 transition ${idx === 0 ? 'active' : ''}">
+                    <button onclick="goToSlide(${idx})" class="thumb-btn flex-shrink-0 w-12 h-12 rounded-lg border-2 border-gray-200 overflow-hidden opacity-60 transition duration-200 ${idx === 0 ? 'active' : ''}">
                         <img src="${imgUrl}" class="w-full h-full object-cover">
                     </button>
                 `);
+
+                // ডট বাটন যোগ
+                dotsContainer.insertAdjacentHTML('beforeend', `
+                    <span onclick="goToSlide(${idx})" class="dot w-2 h-2 rounded-full bg-gray-300 transition-all duration-300 cursor-pointer ${idx === 0 ? 'active' : ''}"></span>
+                `);
             });
 
+            // স্লাইডার নেভিগেশন এরো বাটন অন/অফ
+            if (totalSlides > 1) {
+                document.getElementById('prev-btn').classList.remove('hidden');
+                document.getElementById('next-btn').classList.remove('hidden');
+                thumbsContainer.classList.remove('hidden');
+            } else {
+                document.getElementById('prev-btn').classList.add('hidden');
+                document.getElementById('next-btn').classList.add('hidden');
+                thumbsContainer.classList.add('hidden'); // একটি ছবি থাকলে গ্যালারি দেখানোর প্রয়োজন নেই
+            }
+
+            // টেক্সট ডেটা অ্যাসাইন
             document.getElementById('modal-name').innerText = p.name;
             document.getElementById('modal-price').innerText = `৳ ${p.price}`;
             document.getElementById('modal-desc').innerText = p.desc || 'কোনো বিবরণ নেই।';
 
-            // ভিডিও প্রসেসিং
+            // ভিডিও কন্টেইনার সেটআপ
             const videoContainer = document.getElementById('modal-video-container');
             const videoWrapper = document.getElementById('video-frame-wrapper');
             const embedUrl = getYouTubeEmbedUrl(p.video);
@@ -191,11 +251,62 @@
             const modal = document.getElementById('product-modal');
             modal.classList.remove('hidden');
             setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('div').classList.remove('scale-95'); }, 10);
+            updateSliderPosition();
         }
 
-        function updateActiveThumb(btn) {
-            document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        // 🌟 স্লাইডার কন্ট্রোল লজিক
+        function updateSliderPosition() {
+            const wrapper = document.getElementById('slider-wrapper');
+            wrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+            // একটিভ থাম্বনেইল আপডেট
+            const thumbs = document.querySelectorAll('.thumb-btn');
+            thumbs.forEach((t, i) => {
+                if(i === currentSlideIndex) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+
+            // একটিভ ডট আপডেট
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                if(i === currentSlideIndex) d.classList.add('active');
+                else d.classList.remove('active');
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlides - 1) currentSlideIndex++;
+            else currentSlideIndex = 0; // স্লাইড শেষ হলে আবার প্রথমে চলে যাবে
+            updateSliderPosition();
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) currentSlideIndex--;
+            else currentSlideIndex = totalSlides - 1; // প্রথমে থাকলে শেষে চলে যাবে
+            updateSliderPosition();
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            updateSliderPosition();
+        }
+
+        // 📱 মোবাইল টাচ/সোয়াইপ (Swipe) সাপোর্ট লজিক
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+
+        function handleTouchMove(e) {
+            touchEndX = e.touches[0].clientX;
+        }
+
+        function handleTouchEnd() {
+            const swipeDistance = touchStartX - touchEndX;
+            if (swipeDistance > 50) {
+                nextSlide(); // বামে সোয়াইপ করলে পরের স্লাইড
+            } else if (swipeDistance < -50) {
+                prevSlide(); // ডানে সোয়াইপ করলে আগের স্লাইড
+            }
         }
 
         function closeModal() {
