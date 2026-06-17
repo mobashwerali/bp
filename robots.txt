@@ -1,4 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+
 User-agent: *
-Disallow: 
-Disallow: /cgi-bin/
+Allow: /
+
+# Sitemap Link for Search Engines
 Sitemap: https://babypalace.vercel.app/sitemap.xml
