@@ -14,64 +14,66 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* স্লাইডার অ্যানিমেশন ও স্টাইল */
         .slider-container { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); width: 100%; height: 100%; }
         .slide { flex: 0 0 100%; width: 100%; height: 100%; }
         .dot.active { background-color: #ec4899; width: 1.25rem; }
         .thumb-btn.active { border-color: #ec4899; opacity: 1; transform: scale(1.05); }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.reload()">
                 <div class="h-10 w-10 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-md">BP</div>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Baby<span class="text-pink-500">Palace</span></h1>
             </div>
+            <a href="tel:+8801763128639" class="text-xs sm:text-sm font-semibold bg-gray-100 text-gray-700 px-4 py-2 rounded-full flex items-center space-x-1">
+                <i class="fa-solid fa-headset text-pink-500"></i><span>হেল্পলাইন</span>
+            </a>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-b from-pink-50/50 to-white pt-12 pb-8 text-center px-4">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800">আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন</h2>
-    </header>
+    <div id="main-content-area" class="flex-grow">
+        <header class="bg-gradient-to-b from-pink-50/50 to-white pt-12 pb-8 text-center px-4">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800">আপনার <span class="text-pink-500">ছোট্ট সোনামণি-র</span> সব প্রয়োজন</h2>
+        </header>
 
-    <section class="max-w-6xl mx-auto px-4 mb-8"><div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div></section>
+        <section class="max-w-6xl mx-auto px-4 mb-8"><div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="category-buttons"></div></section>
 
-    <main class="max-w-6xl mx-auto px-4 pb-20">
-        <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center"><span class="w-2 h-5 bg-pink-500 mr-2.5 rounded-full"></span> <span id="current-category-title">সব প্রোডাক্ট</span></h3>
-        <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-            <div class="col-span-full text-center text-gray-400 py-16">লোড হচ্ছে...</div>
+        <main class="max-w-6xl mx-auto px-4 pb-20">
+            <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center"><span class="w-2 h-5 bg-pink-500 mr-2.5 rounded-full"></span> <span id="current-category-title">সব প্রোডাক্ট</span></h3>
+            <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                <div class="col-span-full text-center text-gray-400 py-16">লোড হচ্ছে...</div>
+            </div>
+        </main>
+    </div>
+
+    <div id="policy-page-area" class="max-w-3xl mx-auto px-4 py-12 flex-grow hidden">
+        <button onclick="hidePolicyPage()" class="mb-6 text-sm text-pink-500 font-bold flex items-center space-x-1 hover:underline">
+            <i class="fa-solid fa-arrow-left"></i> <span>হোমপেজে ফিরে যান</span>
+        </button>
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100 shadow-sm">
+            <h2 id="policy-title" class="text-2xl font-bold text-gray-900 mb-4"></h2>
+            <div id="policy-content" class="text-gray-600 text-sm sm:text-base leading-relaxed space-y-4 whitespace-pre-line"></div>
         </div>
-    </main>
+    </div>
 
     <div id="product-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
         <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
-            
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="overflow-y-auto p-5 sm:p-6 space-y-4">
-                
                 <div class="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border relative group">
-                    <div id="slider-wrapper" class="slider-container" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd()">
-                        </div>
-                    
-                    <button onclick="prevSlide()" id="prev-btn" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow transition hidden">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <button onclick="nextSlide()" id="next-btn" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow transition hidden">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </button>
-                    
+                    <div id="slider-wrapper" class="slider-container" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd()"></div>
+                    <button onclick="prevSlide()" id="prev-btn" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow transition hidden"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                    <button onclick="nextSlide()" id="next-btn" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow transition hidden"><i class="fa-solid fa-chevron-right text-xs"></i></button>
                     <div id="slider-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10"></div>
                 </div>
-
                 <div id="modal-thumbs" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar justify-center"></div>
 
                 <div>
-                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900 leading-snug"></h3>
+                    <h3 id="modal-name" class="text-lg sm:text-xl font-bold text-gray-900"></h3>
                     <p id="modal-price" class="text-xl font-extrabold text-pink-500 mt-1"></p>
                 </div>
 
@@ -85,22 +87,67 @@
                     <p id="modal-desc" class="text-gray-600 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
                 </div>
             </div>
-            
             <div class="p-4 border-t bg-gray-50">
-                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-green-100">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> <span>হোয়াটসঅ্যাপে অর্ডার করুন</span>
-                </button>
+                <button id="modal-order-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center space-x-2"><i class="fa-brands fa-whatsapp text-lg"></i> <span>হোয়াটসঅ্যাপে অর্ডার করুন</span></button>
             </div>
         </div>
     </div>
 
+    <footer class="bg-gray-900 text-gray-400 border-t border-gray-800 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-base">Baby<span class="text-pink-500">Palace</span></h4>
+                <p class="leading-relaxed text-gray-400 text-xs sm:text-sm">আপনার শিশুর নিরাপদ ও প্রিমিয়াম কোয়ালিটির খেলনা, পোশাক এবং যত্নের সব প্রোডাক্ট এক জায়গায়। আমরা সারা বাংলাদেশে ক্যাশ অন ডেলিভারি দিয়ে থাকি।</p>
+            </div>
+            
+            <div class="space-y-2.5">
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider text-pink-500">গুরুত্বপূর্ণ লিংক</h4>
+                <ul class="space-y-2 text-xs sm:text-sm">
+                    <li><button onclick="showPolicyPage('about')" class="hover:text-white hover:underline transition">আমাদের সম্পর্কে (About Us)</button></li>
+                    <li><button onclick="showPolicyPage('privacy')" class="hover:text-white hover:underline transition">গোপনীয়তা নীতি (Privacy Policy)</button></li>
+                    <li><button onclick="showPolicyPage('terms')" class="hover:text-white hover:underline transition">শর্তাবলী (Terms & Conditions)</button></li>
+                </ul>
+            </div>
+
+            <div class="space-y-2.5">
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider text-pink-500">যোগাযোগ ও ঠিকানা</h4>
+                <p class="text-xs sm:text-sm leading-relaxed"><i class="fa-solid fa-location-dot mr-2 text-pink-500"></i> মোজ্জাফর টাওয়ার, সিদ্ধিরগঞ্জ পুল, নারায়ণগঞ্জ, বাংলাদেশ।</p>
+                <div class="pt-2">
+                    <a href="https://wa.me/8801763128639" target="_blank" class="inline-flex items-center text-green-400 font-bold bg-green-950/40 border border-green-900 px-3 py-2 rounded-xl text-xs hover:bg-green-950/60 transition">
+                        <i class="fa-brands fa-whatsapp mr-2 text-base"></i> +8801763128639
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-gray-950 py-4 text-center text-xs text-gray-600 border-t border-gray-900">
+            &copy; ২০২৬ বেবি প্যালেস। সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
+
     <script>
         const WHATSAPP_NUMBER = "+8801763128639"; 
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbx2e52l7gSS7WiwzjZgxkAPIHMYSlWcTFBvdgj5FzcrcQSs84DY3otAiKVNQr6GqAaj/exec"; // ⚠️ এখানে আপনার ইউআরএল দিন
+        const DATABASE_URL = "YOUR_GOOGLE_SCRIPT_URL"; // ⚠️ URL bosiye din
 
         let selectedCategory = 'all', products = [];
         let currentSlideIndex = 0, totalSlides = 0;
         let touchStartX = 0, touchEndX = 0;
+
+        // 📄 পলিসি পেজ সমূহের টেক্সট ডাটা
+        const policyData = {
+            about: {
+                title: "আমাদের সম্পর্কে (About Us)",
+                content: `স্বাগতম 'বেবি প্যালেস'-এ! আমরা আপনার সোনামণির সুস্থতা ও আনন্দের কথা মাথায় রেখে সেরা মানের পণ্য সরবরাহ করতে প্রতিশ্রুতিবদ্ধ।\n\nআমাদের মূল লক্ষ্য হলো শিশুদের জন্য ১০০% নিরাপদ, শিক্ষণীয় এবং প্রিমিয়াম কোয়ালিটির খেলনা, পোশাক ও স্কিন কেয়ার প্রোডাক্টস কোনো ঝামেলা ছাড়াই আপনার দোরগোড়ায় পৌঁছে দেওয়া। কাস্টমার সন্তুষ্টি এবং সততাই আমাদের ব্যবসার মূল চালিকাশক্তি।`
+            },
+            privacy: {
+                title: "গোপনীয়তা নীতি (Privacy Policy)",
+                content: `বেবি প্যালেস কাস্টমারদের গোপনীয়তাকে সর্বোচ্চ গুরুত্ব দেয়। আপনি যখন আমাদের ওয়েবসাইট থেকে হোয়াটসঅ্যাপের মাধ্যমে অর্ডার করেন, তখন অর্ডারটি সম্পন্ন করার জন্য আপনার নাম, ঠিকানা এবং ফোন নম্বর সংগ্রহ করা হয়।\n\nআমরা নিশ্চিত করছি যে, আপনার কোনো ব্যক্তিগত তথ্য কোনো তৃতীয় পক্ষের কাছে বিক্রি বা শেয়ার করা হয় না। এটি শুধুমাত্র পণ্য ডেলিভারি এবং কাস্টমার সার্ভিসের প্রয়োজনে ব্যবহৃত হয়।`
+            },
+            terms: {
+                title: "শর্তাবলী (Terms & Conditions)",
+                content: `১. অর্ডার প্রক্রিয়া: কাস্টমার সরাসরি আমাদের ওয়েবসাইটের মাধ্যমে হোয়াটসঅ্যাপে যোগাযোগ করে অর্ডার কনফার্ম করবেন।\n\n২. ডেলিভারি: আমরা সমগ্র বাংলাদেশে ক্যাশ অন ডেলিভারি (Cash on Delivery) সুবিধা দিয়ে থাকি।\n\n৩. রিটার্ন পলিসি: পণ্য ডেলিভারি নেওয়ার সময় কোনো ত্রুটি দেখা গেলে সাথে সাথে ডেলিভারি ম্যানের সামনে চেক করে আমাদের হেল্পলাইনে কল করতে হবে। ব্যবহারের পর কোনো পণ্য রিটার্ন নেওয়া হয় না।`
+            }
+        };
 
         async function fetchProducts() {
             try {
@@ -143,9 +190,7 @@
                 productList.insertAdjacentHTML('beforeend', `
                     <div class="product-card flex flex-col justify-between border border-gray-100">
                         <div onclick="openModal(${globalIndex})" class="cursor-pointer">
-                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden border">
-                                <img src="${p.img}" class="w-full h-full object-cover">
-                            </div>
+                            <div class="w-full h-36 sm:h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden border"><img src="${p.img}" class="w-full h-full object-cover"></div>
                             <h4 class="font-bold text-gray-800 text-sm line-clamp-1 hover:text-pink-500 transition">${p.name}</h4>
                             <p class="text-gray-400 text-[11px] mt-1 line-clamp-2">${p.desc || ''}</p>
                             <span class="text-pink-500 text-[11px] font-bold mt-1 block">See More...</span>
@@ -164,17 +209,12 @@
         function getYouTubeEmbedUrl(url) {
             if (!url) return null;
             let videoId = null;
-            if (url.includes('youtube.com/watch?v=')) {
-                videoId = url.split('v=')[1].split('&')[0];
-            } else if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1].split('?')[0];
-            } else if (url.includes('youtube.com/embed/')) {
-                return url;
-            }
+            if (url.includes('youtube.com/watch?v=')) videoId = url.split('v=')[1].split('&')[0];
+            else if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1].split('?')[0];
+            else if (url.includes('youtube.com/embed/')) return url;
             return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
         }
 
-        // 🌟 মোডাল ওপেন এবং অ্যাডভান্সড স্লাইডশো সেটআপ
         function openModal(index) {
             const p = products[index];
             if(!p) return;
@@ -184,40 +224,18 @@
             const thumbsContainer = document.getElementById('modal-thumbs');
             const dotsContainer = document.getElementById('slider-dots');
             
-            sliderWrapper.innerHTML = "";
-            thumbsContainer.innerHTML = "";
-            dotsContainer.innerHTML = "";
+            sliderWrapper.innerHTML = ""; thumbsContainer.innerHTML = ""; dotsContainer.innerHTML = "";
 
-            // ছবি প্রসেসিং
             let allImages = [p.img];
-            if(p.more_imgs) {
-                allImages = allImages.concat(p.more_imgs.split(',').map(link => link.trim()).filter(l => l !== ""));
-            }
+            if(p.more_imgs) allImages = allImages.concat(p.more_imgs.split(',').map(link => link.trim()).filter(l => l !== ""));
             totalSlides = allImages.length;
 
-            // স্লাইডার উইন্ডো ও ইন্ডিকেটর তৈরি
             allImages.forEach((imgUrl, idx) => {
-                // স্লাইড ইমেজ যোগ
-                sliderWrapper.insertAdjacentHTML('beforeend', `
-                    <div class="slide flex-shrink-0 w-100 h-100">
-                        <img src="${imgUrl}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x400?text=No+Image';">
-                    </div>
-                `);
-                
-                // থাম্বনেইল বাটন যোগ
-                thumbsContainer.insertAdjacentHTML('beforeend', `
-                    <button onclick="goToSlide(${idx})" class="thumb-btn flex-shrink-0 w-12 h-12 rounded-lg border-2 border-gray-200 overflow-hidden opacity-60 transition duration-200 ${idx === 0 ? 'active' : ''}">
-                        <img src="${imgUrl}" class="w-full h-full object-cover">
-                    </button>
-                `);
-
-                // ডট বাটন যোগ
-                dotsContainer.insertAdjacentHTML('beforeend', `
-                    <span onclick="goToSlide(${idx})" class="dot w-2 h-2 rounded-full bg-gray-300 transition-all duration-300 cursor-pointer ${idx === 0 ? 'active' : ''}"></span>
-                `);
+                sliderWrapper.insertAdjacentHTML('beforeend', `<div class="slide flex-shrink-0 w-100 h-100"><img src="${imgUrl}" class="w-full h-full object-cover"></div>`);
+                thumbsContainer.insertAdjacentHTML('beforeend', `<button onclick="goToSlide(${idx})" class="thumb-btn flex-shrink-0 w-12 h-12 rounded-lg border-2 border-gray-200 overflow-hidden opacity-60 transition duration-200 ${idx === 0 ? 'active' : ''}"><img src="${imgUrl}" class="w-full h-full object-cover"></button>`);
+                dotsContainer.insertAdjacentHTML('beforeend', `<span onclick="goToSlide(${idx})" class="dot w-2 h-2 rounded-full bg-gray-300 transition-all duration-300 cursor-pointer ${idx === 0 ? 'active' : ''}"></span>`);
             });
 
-            // স্লাইডার নেভিগেশন এরো বাটন অন/অফ
             if (totalSlides > 1) {
                 document.getElementById('prev-btn').classList.remove('hidden');
                 document.getElementById('next-btn').classList.remove('hidden');
@@ -225,25 +243,22 @@
             } else {
                 document.getElementById('prev-btn').classList.add('hidden');
                 document.getElementById('next-btn').classList.add('hidden');
-                thumbsContainer.classList.add('hidden'); // একটি ছবি থাকলে গ্যালারি দেখানোর প্রয়োজন নেই
+                thumbsContainer.classList.add('hidden');
             }
 
-            // টেক্সট ডেটা অ্যাসাইন
             document.getElementById('modal-name').innerText = p.name;
             document.getElementById('modal-price').innerText = `৳ ${p.price}`;
             document.getElementById('modal-desc').innerText = p.desc || 'কোনো বিবরণ নেই।';
 
-            // ভিডিও কন্টেইনার সেটআপ
             const videoContainer = document.getElementById('modal-video-container');
             const videoWrapper = document.getElementById('video-frame-wrapper');
             const embedUrl = getYouTubeEmbedUrl(p.video);
 
             if(embedUrl) {
-                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                videoWrapper.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
                 videoContainer.classList.remove('hidden');
             } else {
-                videoWrapper.innerHTML = "";
-                videoContainer.classList.add('hidden');
+                videoWrapper.innerHTML = ""; videoContainer.classList.add('hidden');
             }
 
             document.getElementById('modal-order-btn').onclick = () => orderViaWhatsApp(p.name, p.price);
@@ -254,66 +269,45 @@
             updateSliderPosition();
         }
 
-        // 🌟 স্লাইডার কন্ট্রোল লজিক
         function updateSliderPosition() {
-            const wrapper = document.getElementById('slider-wrapper');
-            wrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-
-            // একটিভ থাম্বনেইল আপডেট
-            const thumbs = document.querySelectorAll('.thumb-btn');
-            thumbs.forEach((t, i) => {
-                if(i === currentSlideIndex) t.classList.add('active');
-                else t.classList.remove('active');
-            });
-
-            // একটিভ ডট আপডেট
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((d, i) => {
-                if(i === currentSlideIndex) d.classList.add('active');
-                else d.classList.remove('active');
-            });
+            document.getElementById('slider-wrapper').style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            document.querySelectorAll('.thumb-btn').forEach((t, i) => t.classList.toggle('active', i === currentSlideIndex));
+            document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlideIndex));
         }
 
-        function nextSlide() {
-            if (currentSlideIndex < totalSlides - 1) currentSlideIndex++;
-            else currentSlideIndex = 0; // স্লাইড শেষ হলে আবার প্রথমে চলে যাবে
-            updateSliderPosition();
-        }
-
-        function prevSlide() {
-            if (currentSlideIndex > 0) currentSlideIndex--;
-            else currentSlideIndex = totalSlides - 1; // প্রথমে থাকলে শেষে চলে যাবে
-            updateSliderPosition();
-        }
-
-        function goToSlide(index) {
-            currentSlideIndex = index;
-            updateSliderPosition();
-        }
-
-        // 📱 মোবাইল টাচ/সোয়াইপ (Swipe) সাপোর্ট লজিক
-        function handleTouchStart(e) {
-            touchStartX = e.touches[0].clientX;
-        }
-
-        function handleTouchMove(e) {
-            touchEndX = e.touches[0].clientX;
-        }
-
-        function handleTouchEnd() {
-            const swipeDistance = touchStartX - touchEndX;
-            if (swipeDistance > 50) {
-                nextSlide(); // বামে সোয়াইপ করলে পরের স্লাইড
-            } else if (swipeDistance < -50) {
-                prevSlide(); // ডানে সোয়াইপ করলে আগের স্লাইড
-            }
-        }
+        function nextSlide() { currentSlideIndex = currentSlideIndex < totalSlides - 1 ? currentSlideIndex + 1 : 0; updateSliderPosition(); }
+        function prevSlide() { currentSlideIndex = currentSlideIndex > 0 ? currentSlideIndex - 1 : totalSlides - 1; updateSliderPosition(); }
+        function goToSlide(index) { currentSlideIndex = index; updateSliderPosition(); }
+        function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
+        function handleTouchMove(e) { touchEndX = e.touches[0].clientX; }
+        function handleTouchEnd() { const dist = touchStartX - touchEndX; if (dist > 50) nextSlide(); else if (dist < -50) prevSlide(); }
 
         function closeModal() {
             const modal = document.getElementById('product-modal');
             document.getElementById('video-frame-wrapper').innerHTML = ""; 
             modal.classList.add('opacity-0'); modal.querySelector('div').classList.add('scale-95');
             setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // 📄 পলিসি পেজ ডাইনামিকালি লোড করার ফাংশন
+        function showPolicyPage(type) {
+            const data = policyData[type];
+            if(!data) return;
+
+            // মূল ইনভেন্টরি পার্ট হাইড করো, পলিসি পার্ট শো করো
+            document.getElementById('main-content-area').classList.add('hidden');
+            const targetArea = document.getElementById('policy-page-area');
+            targetArea.classList.remove('hidden');
+
+            document.getElementById('policy-title').innerText = data.title;
+            document.getElementById('policy-content').innerText = data.content;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hidePolicyPage() {
+            document.getElementById('policy-page-area').classList.add('hidden');
+            document.getElementById('main-content-area').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function orderViaWhatsApp(name, price) {
